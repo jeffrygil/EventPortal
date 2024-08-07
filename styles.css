@@ -1,0 +1,230 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: white;
+    color: #0073e6;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    height: 50px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.header-right li {
+    margin: 0 10px;
+}
+
+.header-right a {
+    color: #0073e6;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.header-right a i {
+    margin-right: 5px;
+    font-size: 1.5em;
+}
+
+.follow-us {
+    margin-left: 20px;
+}
+
+.follow-us p {
+    margin: 0;
+}
+
+.follow-us a {
+    display: inline-block;
+    margin: 0 5px;
+    color: #0073e6;
+    font-size: 1.5em;
+}
+
+.nav-panel {
+    background-color: #66bb6a; /* Verde más claro */
+    padding: 10px;
+    text-align: center;
+}
+
+.nav-panel button {
+    background-color: #66bb6a; /* Verde más claro */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-panel button i {
+    margin-right: 8px;
+}
+
+.nav-panel button:hover {
+    background-color: #81c784;
+}
+
+.carousel {
+    position: relative;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: calc(100% - 40px); /* Ajustar según el padding */
+    box-sizing: border-box;
+    overflow: hidden; /* Asegura que las imágenes no excedan los límites */
+}
+
+.carousel img {
+    width: 100%;
+    height: auto;
+    max-height: 500px; /* Ajusta la altura máxima para mantener las imágenes del mismo tamaño */
+    object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+    display: none;
+}
+
+.carousel img:first-child {
+    display: block;
+}
+
+.carousel-dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.carousel-dots .dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.carousel-dots .dot.active {
+    background-color: #717171;
+}
+
+.search-panel {
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-panel input[type="text"], 
+.search-panel input[type="date"], 
+.search-panel select, 
+.search-panel button {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-panel button {
+    background-color: #66bb6a; /* Verde más claro */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-panel button:hover {
+    background-color: #81c784;
+}
+
+.events {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre eventos */
+}
+
+.event {
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho disponible */
+    max-width: 300px; /* Ancho máximo para cada evento */
+}
+
+.event-image {
+    width: 100%;
+    height: 150px; /* Ajusta la altura según el diseño deseado */
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.contacto {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.contacto h2 {
+    margin-top: 0;
+}
+
+.contacto form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contacto label {
+    margin-top: 10px;
+}
+
+.contacto input, 
+.contacto textarea {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contacto button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #66bb6a; /* Verde más claro */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.contacto button:hover {
+    background-color: #81c784;
+}

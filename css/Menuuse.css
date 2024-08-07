@@ -1,0 +1,163 @@
+/* Header Styles */
+.header {
+    background-color: #28a745; /* Verde */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.header img {
+    height: 50px;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.search-form input[type="text"] {
+    padding: 5px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+.search-form button {
+    background-color: #1e7e34; /* Verde más oscuro */
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+.header-right a {
+    background: #28a745; /* Verde */
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px; /* Bordes redondeados normales */
+    margin: 0 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+.header-right a:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+}
+.header-right .profile-dropdown {
+    position: relative;
+}
+.profile-dropdown button {
+    background: #28a745; /* Verde */
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px; /* Bordes redondeados normales */
+    margin: 0 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+.profile-dropdown button:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+}
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+.profile-menu h3 {
+    margin-top: 0;
+}
+.profile-menu form {
+    display: flex;
+    flex-direction: column;
+}
+.profile-menu form label {
+    margin: 5px 0 2px;
+}
+.profile-menu form input,
+.profile-menu form select,
+.profile-menu form textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.profile-menu form button {
+    background-color: #28a745; /* Verde */
+    border: none;
+    color: white;
+    padding: 10px 20px; /* Botón más grande */
+    border-radius: 5px; /* Bordes redondeados normales */
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.profile-menu form button:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+}
+
+/* Content Styles */
+.content {
+    padding: 20px;
+}
+.events {
+    margin-top: 20px;
+}
+.event {
+    background: white;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.event-image {
+    max-width: 100%;
+    border-radius: 5px;
+}
+.btn-asistir {
+    background-color: #28a745; /* Verde */
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.btn-asistir:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+}
+
+/* Button Styles */
+button[type="submit"] {
+    background-color: #28a745; /* Verde */
+    border: none;
+    color: white;
+    padding: 10px 20px; /* Aumentado el padding para un botón más grande */
+    border-radius: 5px; /* Bordes redondeados normales */
+    cursor: pointer;
+    font-size: 16px;
+}
+button[type="submit"]:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+}
