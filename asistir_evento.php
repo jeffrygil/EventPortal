@@ -15,7 +15,7 @@ $usuario_id = $_SESSION['user_id'];
 $evento_id = $_POST['evento_id'];
 
 // Verifica si el usuario ya está registrado para este evento
-$checkQuery = "SELECT * FROM solicitudes WHERE usuario_id = ? AND evento_id = ?";
+$checkQuery = "SELECT * FROM solicitud WHERE usuario_id = ? AND evento_id = ?";
 $stmt = $conn->prepare($checkQuery);
 $stmt->bind_param("ii", $usuario_id, $evento_id);
 $stmt->execute();
@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
     exit;
 } else {
     // Registra al usuario para el evento
-    $insertQuery = "INSERT INTO solicitudes (usuario_id, evento_id, estado) VALUES (?, ?, 'aprobado')";
+    $insertQuery = "INSERT INTO solicitud (usuario_id, evento_id, estado) VALUES (?, ?, 'aprobado')";
     $stmt = $conn->prepare($insertQuery);
     $stmt->bind_param("ii", $usuario_id, $evento_id);
     $stmt->execute();

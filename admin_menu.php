@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="logo.png" alt="Logo">
+    <img src="/imagenes/logo.png" alt="Logo">
         <div class="header-right">
             <ul>
                 <li><a href="admin_menu.php"><i class="fas fa-home"></i> Inicio</a></li>
@@ -18,13 +18,15 @@
             </ul>
         </div></div>
 
-    <div class="sidebar">
-        <ul>
-            <li><a href="admin_eventos.php"><i class="fas fa-calendar"></i> Registro de Eventos</a></li>
-            <li><a href="admin_asistir.php"><i class="fas fa-users"></i> Solicitudes de Asistencia</a></li>
-            <li><a href="admin_usuarios.php"><i class="fas fa-user-cog"></i> Control de Usuarios</a></li>
-        </ul>
-    </div>
+        <div class="sidebar">
+    <img src="/imagenes/logo.png" alt="Logo" class="sidebar-logo">
+    <ul>
+        <li><a href="admin_eventos.php"><i class="fas fa-calendar"></i> Registro de Eventos</a></li>
+        <li><a href="admin_asistir.php"><i class="fas fa-users"></i> Solicitudes de Asistencia</a></li>
+        <li><a href="admin_usuarios.php"><i class="fas fa-user-cog"></i> Control de Usuarios</a></li>
+    </ul>
+</div>
+
 
     <div class="main-content">
         <h1>Bienvenido al Panel de Administración</h1>

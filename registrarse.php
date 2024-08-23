@@ -16,7 +16,7 @@
                 <li><a href="index.php"><i class="fas fa-home"></i> Inicio</a></li>
                 <li><a href="unidades.php"><i class="fas fa-building"></i> Unidades</a></li>
                 <li><a href="directorio.php"><i class="fas fa-address-book"></i> Directorio</a></li>
-                <li><a href="centro.php"><i class="fas fa-school"></i> Centro</a></li>
+                <li><a href=""><i class="fas fa-school"></i> Centro</a></li>
             </ul>
             <p>Síguenos en:</p>
             <div class="follow-us">

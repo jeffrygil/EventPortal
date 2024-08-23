@@ -1,3 +1,8 @@
+<?php
+session_start();
+$loggedIn = isset($_SESSION['user_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,13 +30,21 @@
             </div>
         </div>
     </div>
+    
     <div class="nav-panel">
-        <button onclick="location.href='index.php'"><i class="fas fa-home"></i> Inicio</button>
-        <button onclick="location.href='proximo_evento.php'"><i class="fas fa-calendar-alt"></i> Próximo Evento</button>
+        <button onclick="location.href='inicio.php'"><i class="fas fa-home"></i> Inicio</button>
+        <button onclick="location.href='proximo_evento_user.php'"><i class="fas fa-calendar-alt"></i> Próximo Evento</button>
         <button onclick="location.href='#contacto'"><i class="fas fa-envelope"></i> Contacto</button>
-        <button onclick="location.href='registrarse.php'"><i class="fas fa-user-plus"></i> Registrarse</button>
-        <button onclick="location.href='iniciar_sesion.php'"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+
+        <?php if ($loggedIn): ?>
+            <button onclick="location.href='user_menu.php'"><i class="fas fa-user"></i> Ir al Portal</button>
+            <button onclick="location.href='logout.php'"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        <?php else: ?>
+            <button onclick="location.href='registrarse.php'"><i class="fas fa-user-plus"></i> Registrarse</button>
+            <button onclick="location.href='iniciar_sesion.php'"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+        <?php endif; ?>
     </div>
+    
     <div class="carousel">
         <!-- Imágenes de los eventos -->
         <img src="imagenes/evento.jpg" alt="Imagen 1">
@@ -43,50 +56,16 @@
             <span class="dot"></span>
         </div>
     </div>
+    
     <div class="search-panel">
-        <form method="GET" action="index.php">
+        <form method="GET" action="inicio.php">
             <input type="text" name="search" placeholder="Buscar...">
             <button type="submit"><i class="fas fa-search"></i> Buscar</button>
         </form>
     </div>
+    
     <div class="events">
-        <?php
-        // Conexión a la base de datos
-        require 'config.php';
-
-        // Obtener parámetros de búsqueda
-        $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
-
-        // Obtener el mes y año actual
-        $currentMonth = date('m');
-        $currentYear = date('Y');
-
-        // Construir la consulta SQL para eventos que no han finalizado y están dentro del mes actual
-        $query = "SELECT * FROM eventos WHERE fecha_fin >= CURDATE() AND MONTH(fecha_fin) = '$currentMonth' AND YEAR(fecha_fin) = '$currentYear'";
-
-        if (!empty($search)) {
-            $query .= " AND titulo LIKE '%$search%'";
-        }
-
-        // Consultar eventos
-        $result = $conn->query($query);
-
-        // Mostrar eventos
-        if ($result->num_rows > 0):
-            while ($row = $result->fetch_assoc()): ?>
-                <div class="event">
-                    <img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt="Imagen del Evento" class="event-image">
-                    <h3><?php echo htmlspecialchars($row['titulo']); ?></h3>
-                    <p><?php echo htmlspecialchars($row['descripcion']); ?></p>
-                    <p><strong>Fecha de Inicio:</strong> <?php echo date('d/m/Y', strtotime($row['fecha_inicio'])); ?></p>
-                    <p><strong>Fecha de Finalización:</strong> <?php echo date('d/m/Y', strtotime($row['fecha_fin'])); ?></p>
-                </div>
-            <?php endwhile;
-        else: ?>
-            <p>No se encontraron eventos.</p>
-        <?php endif;
-
-        $conn->close(); ?>
+        <!-- Código PHP para mostrar eventos, similar al index -->
     </div>
 
     <!-- Sección de contacto -->

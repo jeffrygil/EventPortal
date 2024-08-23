@@ -1,12 +1,24 @@
 <?php
 include('config.php');
 
+// Verificar la conexión a la base de datos
+if ($conn->connect_error) {
+    die("Error en la conexión: " . $conn->connect_error);
+}
+
 $sql = "SELECT s.id, u.nombre, e.titulo, s.fecha_solicitud, s.estado, s.usuario_id, s.evento_id, u.tipo
-        FROM solicitudes s
+        FROM solicitud s
         JOIN usuarios u ON s.usuario_id = u.id
         JOIN eventos e ON s.evento_id = e.id";
+
+// Ejecutar la consulta y verificar si se ejecutó correctamente
 $result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Error en la consulta SQL: " . mysqli_error($conn)); // Mostrar el error si la consulta falla
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -31,12 +43,13 @@ $result = mysqli_query($conn, $sql);
     </div>
 
     <div class="sidebar">
-        <ul>
-            <li><a href="admin_eventos.php"><i class="fas fa-calendar"></i> Registro de Eventos</a></li>
-            <li><a href="admin_asistir.php"><i class="fas fa-users"></i> Solicitudes de Asistencia</a></li>
-            <li><a href="admin_usuarios.php"><i class="fas fa-user-cog"></i> Control de Usuarios</a></li>
-        </ul>
-    </div>
+    <img src="/imagenes/logo.png" alt="Logo" class="sidebar-logo">
+    <ul>
+        <li><a href="admin_eventos.php"><i class="fas fa-calendar"></i> Registro de Eventos</a></li>
+        <li><a href="admin_asistir.php"><i class="fas fa-users"></i> Solicitudes de Asistencia</a></li>
+        <li><a href="admin_usuarios.php"><i class="fas fa-user-cog"></i> Control de Usuarios</a></li>
+    </ul>
+</div>
 
     <div class="main-content">
         <h1>Solicitudes de Asistencia</h1>

@@ -7,6 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $descripcion = $_POST['descripcion'];
     $fecha_inicio = $_POST['fecha_inicio'];
     $fecha_fin = $_POST['fecha_fin'];
+    $capacidad = $_POST['capacidad'];
+    $lugar = $_POST['lugar'];
 
     // Subir imagen
     $imagen = $_FILES['imagen']['name'];
@@ -19,8 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $target_file = $target_dir . basename($imagen);
     if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
-        $sql = "INSERT INTO eventos (titulo, descripcion, fecha_inicio, fecha_fin, imagen) VALUES ('$titulo', '$descripcion', '$fecha_inicio', '$fecha_fin', '$target_file')";
-        mysqli_query($conn, $sql);
+        $sql = "INSERT INTO eventos (titulo, descripcion, fecha_inicio, fecha_fin, lugar, capacidad, imagen) 
+                VALUES ('$titulo', '$descripcion', '$fecha_inicio', '$fecha_fin', '$lugar', '$capacidad', '$target_file')";
+        if (mysqli_query($conn, $sql)) {
+            echo "Evento agregado exitosamente.";
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
     } else {
         echo "Error al subir la imagen.";
     }
@@ -52,8 +59,8 @@ $result = mysqli_query($conn, $sql);
             </ul>
         </div>
     </div>
-
     <div class="sidebar">
+        <img src="/imagenes/logo.png" alt="Logo" class="sidebar-logo">
         <ul>
             <li><a href="admin_eventos.php"><i class="fas fa-calendar"></i> Registro de Eventos</a></li>
             <li><a href="admin_asistir.php"><i class="fas fa-users"></i> Solicitudes de Asistencia</a></li>
@@ -76,6 +83,12 @@ $result = mysqli_query($conn, $sql);
             <label for="fecha_fin">Fecha de Fin:</label>
             <input type="date" id="fecha_fin" name="fecha_fin" required>
 
+            <label for="lugar">Lugar:</label>
+            <input type="text" id="lugar" name="lugar" required>
+
+            <label for="capacidad">Capacidad:</label>
+            <input type="number" id="capacidad" name="capacidad" required>
+
             <label for="imagen">Imagen del Evento:</label>
             <input type="file" id="imagen" name="imagen" accept="image/*" required>
 
@@ -89,6 +102,8 @@ $result = mysqli_query($conn, $sql);
                 <th><i class="fas fa-align-left"></i> Descripción</th>
                 <th><i class="fas fa-clock"></i> Fecha de Inicio</th>
                 <th><i class="fas fa-clock"></i> Fecha de Fin</th>
+                <th><i class="fas fa-map-marker-alt"></i> Lugar</th>
+                <th><i class="fas fa-users"></i> Capacidad</th>
                 <th><i class="fas fa-image"></i> Imagen</th>
             </tr>
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
@@ -97,6 +112,8 @@ $result = mysqli_query($conn, $sql);
                 <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
                 <td><?php echo htmlspecialchars($row['fecha_inicio']); ?></td>
                 <td><?php echo htmlspecialchars($row['fecha_fin']); ?></td>
+                <td><?php echo htmlspecialchars($row['lugar']); ?></td>
+                <td><?php echo htmlspecialchars($row['capacidad']); ?></td>
                 <td><img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt="Imagen del Evento" style="width:100px;"></td>
             </tr>
             <?php } ?>

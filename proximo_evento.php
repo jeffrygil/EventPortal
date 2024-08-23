@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Inicio</title>
+    <title>Próximos Eventos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -32,41 +32,17 @@
         <button onclick="location.href='registrarse.php'"><i class="fas fa-user-plus"></i> Registrarse</button>
         <button onclick="location.href='iniciar_sesion.php'"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
     </div>
-    <div class="carousel">
-        <!-- Imágenes de los eventos -->
-        <img src="imagenes/evento.jpg" alt="Imagen 1">
-        <img src="imagenes/lugar.jpg" alt="Imagen 2">
-        <img src="imagenes/aniversario.jpeg" alt="Imagen 3">
-        <div class="carousel-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
-    <div class="search-panel">
-        <form method="GET" action="index.php">
-            <input type="text" name="search" placeholder="Buscar...">
-            <button type="submit"><i class="fas fa-search"></i> Buscar</button>
-        </form>
-    </div>
     <div class="events">
         <?php
         // Conexión a la base de datos
         require 'config.php';
 
-        // Obtener parámetros de búsqueda
-        $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+        // Obtener el mes y año del próximo mes
+        $nextMonth = date('m', strtotime('first day of next month'));
+        $nextYear = date('Y', strtotime('first day of next month'));
 
-        // Obtener el mes y año actual
-        $currentMonth = date('m');
-        $currentYear = date('Y');
-
-        // Construir la consulta SQL para eventos que no han finalizado y están dentro del mes actual
-        $query = "SELECT * FROM eventos WHERE fecha_fin >= CURDATE() AND MONTH(fecha_fin) = '$currentMonth' AND YEAR(fecha_fin) = '$currentYear'";
-
-        if (!empty($search)) {
-            $query .= " AND titulo LIKE '%$search%'";
-        }
+        // Construir la consulta SQL para eventos del próximo mes
+        $query = "SELECT * FROM eventos WHERE MONTH(fecha_inicio) = '$nextMonth' AND YEAR(fecha_inicio) = '$nextYear'";
 
         // Consultar eventos
         $result = $conn->query($query);
@@ -83,13 +59,11 @@
                 </div>
             <?php endwhile;
         else: ?>
-            <p>No se encontraron eventos.</p>
+            <p>No se encontraron eventos para el próximo mes.</p>
         <?php endif;
 
         $conn->close(); ?>
     </div>
-
-    <!-- Sección de contacto -->
     <div class="contacto" id="contacto">
         <h2>Contacto</h2>
         <form action="enviar_contacto.php" method="post">
@@ -105,37 +79,6 @@
             <button type="submit">Enviar Mensaje</button>
         </form>
     </div>
-
-    <script>
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.carousel img');
-        const dots = document.querySelectorAll('.carousel-dots .dot');
-
-        function showImage(index) {
-            images.forEach((img, i) => {
-                img.style.display = i === index ? 'block' : 'none';
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage(currentIndex);
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage(currentIndex);
-        }
-
-        document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
-            dot.addEventListener('click', () => showImage(i));
-        });
-
-        setInterval(nextImage, 5000);
-        showImage(currentIndex);
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>

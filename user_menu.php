@@ -24,9 +24,28 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-// Consulta para obtener los eventos
-$eventQuery = "SELECT id, titulo, descripcion, fecha_inicio, fecha_fin, imagen FROM eventos ORDER BY fecha_inicio DESC";
+// Consulta para obtener los eventos vigentes
+$eventQuery = "
+    SELECT 
+        e.id, 
+        e.titulo, 
+        e.descripcion, 
+        e.fecha_inicio, 
+        e.fecha_fin, 
+        e.lugar, 
+        e.capacidad, 
+        (e.capacidad - IFNULL((SELECT COUNT(*) FROM solicitud WHERE evento_id = e.id AND estado = 'aprobado'), 0)) AS capacidad_disponible, 
+        e.imagen 
+    FROM eventos e 
+    WHERE e.fecha_fin >= CURDATE()
+    ORDER BY e.fecha_inicio DESC
+";
 $eventResult = $conn->query($eventQuery);
+
+// Verifica si la consulta fue exitosa
+if (!$eventResult) {
+    die("Error en la consulta: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -45,14 +64,13 @@ $eventResult = $conn->query($eventQuery);
                 <input type="text" name="query" placeholder="Buscar eventos...">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-            <a href="user_menu.php"><i class="fas fa-home"></i> Inicio</a>
+            <a href="inicio.php"><i class="fas fa-home"></i></a>
+            <button onclick="toggleProfileMenu()">
+                <i class="fas fa-user"></i>
+                <br>
+            </button>
+            <a href="logout.php"><button><i class="fas fa-sign-out-alt"></i></button></a>
             <div class="profile-dropdown">
-                <button onclick="toggleProfileMenu()">
-                    <i class="fas fa-user"></i>
-                    <br>
-                    Perfil
-                </button>
-                <a href="logout.php"><button><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button></a>
                 <div id="profile-menu" class="profile-menu">
                     <h3>Perfil del Usuario</h3>
                     <form action="actualizar_perfil.php" method="post">
@@ -103,6 +121,8 @@ $eventResult = $conn->query($eventQuery);
                     <p><?php echo htmlspecialchars($event['descripcion']); ?></p>
                     <p><strong>Fecha de Inicio:</strong> <?php echo htmlspecialchars($event['fecha_inicio']); ?></p>
                     <p><strong>Fecha de Fin:</strong> <?php echo htmlspecialchars($event['fecha_fin']); ?></p>
+                    <p><strong>Lugar:</strong> <?php echo htmlspecialchars($event['lugar']); ?></p>
+                    <p><strong>Capacidad Disponible:</strong> <?php echo htmlspecialchars($event['capacidad_disponible']); ?></p>
                     <form action="asistir_evento.php" method="post">
                         <input type="hidden" name="evento_id" value="<?php echo htmlspecialchars($event['id']); ?>">
                         <button type="submit" class="btn-asistir">Asistir</button>

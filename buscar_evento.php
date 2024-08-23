@@ -24,9 +24,16 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-// Consulta para obtener los eventos
-$eventQuery = "SELECT id, titulo, descripcion, fecha_inicio, fecha_fin, imagen FROM eventos ORDER BY fecha_inicio DESC";
-$eventResult = $conn->query($eventQuery);
+// Consulta para obtener los eventos que no han finalizado aún
+$currentDate = date('Y-m-d');
+$eventQuery = "SELECT id, titulo, descripcion, fecha_inicio, fecha_fin, imagen 
+               FROM eventos 
+               WHERE fecha_fin >= ? 
+               ORDER BY fecha_inicio DESC";
+$stmt = $conn->prepare($eventQuery);
+$stmt->bind_param("s", $currentDate);
+$stmt->execute();
+$eventResult = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -46,11 +53,11 @@ $eventResult = $conn->query($eventQuery);
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
             <a href="user_menu.php"><i class="fas fa-home"></i></a>
-            <div class="profile-dropdown">
-                <button onclick="toggleProfileMenu()">
+            <button onclick="toggleProfileMenu()">
                     <i class="fas fa-user"></i>
                 </button>
                 <a href="logout.php"><button><i class="fas fa-sign-out-alt"></i></button></a>
+            <div class="profile-dropdown">
                 <div id="profile-menu" class="profile-menu">
                     <h3>Perfil del Usuario</h3>
                     <form action="actualizar_perfil.php" method="post">

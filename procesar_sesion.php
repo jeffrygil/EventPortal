@@ -31,7 +31,7 @@ if ($stmt->num_rows > 0) {
         if ($rol == 'admin') {
             header('Location: admin_menu.php');
         } else {
-            header('Location: user_menu.php');
+            header('Location: inicio.php');
         }
         exit();
     } else {
